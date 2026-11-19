@@ -1,0 +1,36 @@
+  @"
+server:
+  port: 8085
+
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      enabled: false
+
+  eureka:
+    client:
+      enabled: false
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info
+    "@ | Set-Content "$gw\src\main\resources\application.yml" -Encoding utf8
+    
+    @"
+package com.agrismart.gateway;
+
+import org.junit.jupiter.api.Test;
+
+class ApiGatewayApplicationTests {
+
+    @Test
+    void sanityCheck() {
+    }
+}
+"@ | Set-Content "$gw\src\test\java\com\agrismart\gateway\ApiGatewayApplicationTests.java" -Encoding utf8
